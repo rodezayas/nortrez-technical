@@ -1,0 +1,1334 @@
+{
+  "name": "Airtable -> Monday -> Hubspot -> Intercom v2",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Ciudad }}",
+                    "rightValue": "=Monterrey",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "2e8f24c3-b138-43d8-b602-a132c38d2558"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Monterrey"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0a97ae5d-d8a3-4019-a66d-dc88e448abbe",
+                    "leftValue": "={{ $json.Ciudad }}",
+                    "rightValue": "Queretaro",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Queretaro"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0c66ea9c-e52e-4bbc-88e2-1fad2d222cf1",
+                    "leftValue": "={{ $json.Ciudad }}",
+                    "rightValue": "Guadalajara",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Guadalajara"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        784,
+        -144
+      ],
+      "id": "48b0c420-4e02-4320-b569-461ebded36ce",
+      "name": "Switch"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        416
+      ],
+      "id": "230ec23f-31ae-4e46-a980-52dd90ccf856",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.monday.com/v2",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "mondayComApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"query { boards(ids: 18430363886) { columns { id title type } } }\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        96,
+        352
+      ],
+      "id": "7d25e7e0-2cca-428b-a805-80c1ca08e4e6",
+      "name": "Column IDs",
+      "credentials": {
+        "mondayComApi": {
+          "id": "VtyCxYatsXYaKl27",
+          "name": "Monday.com account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.monday.com/v2",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "mondayComApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"query { boards(ids: 18430363886) { groups { id title } } }\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        96,
+        528
+      ],
+      "id": "8f6553de-1af8-4c88-b967-c67fb4f320d2",
+      "name": "Board ID - Group ID",
+      "credentials": {
+        "mondayComApi": {
+          "id": "VtyCxYatsXYaKl27",
+          "name": "Monday.com account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4a09987c-3f46-4f9a-9764-8da2bc3ad537",
+              "leftValue": "={{ $json.errors }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1296,
+        -128
+      ],
+      "id": "f4c9fbe7-5aaf-492e-93eb-316f3e9036a9",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        32
+      ],
+      "id": "3070cfa8-67f1-4145-9680-43186efdb614",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.monday.com/v2",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "mondayComApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"query\": \"mutation ($board: ID!, $group: String!, $name: String!, $d: JSON!) { create_item(board_id: $board, group_id: $group, item_name: $name, column_values: $d) { id name } }\",\n  \"variables\": {\n    \"board\": \"18430363886\",\n    \"group\": \"topics\",\n    \"name\": \"{{ $json.Nombre }}\",\n    \"d\": \"{\\\"lead_status\\\":{\\\"label\\\":\\\"Lead nuevo\\\"},\\\"lead_email\\\":{\\\"email\\\":\\\"{{ $json.Email }}\\\",\\\"text\\\":\\\"{{ $json.Email }}\\\"},\\\"lead_phone\\\":{\\\"phone\\\":\\\"{{ $json.Telefono }}\\\",\\\"countryShortName\\\":\\\"MX\\\"},\\\"color_mm1gcy3t\\\":{\\\"label\\\":\\\"Facebook Ads\\\"},\\\"long_text\\\":\\\"{{ $json.Servicio }}\\\",\\\"date__1\\\":{\\\"date\\\":\\\"{{ $json.Fecha }}\\\"}}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1072,
+        -128
+      ],
+      "id": "ce7d7e97-598a-4757-99e3-5da44afc6bae",
+      "name": "Monday - Crea Item",
+      "credentials": {
+        "mondayComApi": {
+          "id": "VtyCxYatsXYaKl27",
+          "name": "Monday.com account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.hubapi.com/crm/v3/objects/contacts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"properties\": {\n    \"firstname\": \"{{ $json.Nombre }}\",\n    \"email\": \"{{ $json.Email }}\",\n    \"phone\": \"{{ $json.Telefono }}\",\n    \"servicio\": \"{{ $json.Servicio }}\",\n    \"hs_lead_status\": \"NEW\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1120,
+        -560
+      ],
+      "id": "e922b536-1574-4da4-a25f-cd4a996547e1",
+      "name": "Hubspot - Crea Contacto",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "zYytLrCraUsyyfp5",
+          "name": "Bearer Auth account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Error en los datos."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        -144
+      ],
+      "id": "94713c43-d0af-4ead-88f9-6792ceb7479c",
+      "name": "Stop and Error1"
+    },
+    {
+      "parameters": {
+        "content": "## Obtener Datos de API Monday\n**",
+        "height": 448,
+        "width": 784
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        304
+      ],
+      "typeVersion": 1,
+      "id": "358707fe-4cb8-470e-9a33-552fc29317f0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Logica Principal\n",
+        "height": 496,
+        "width": 964,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "ca9ab33a-467b-49c9-893f-ac780fa57456",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "tableId": "lead_processing",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "record_id",
+              "fieldValue": "={{ $json.recordId }}"
+            },
+            {
+              "fieldId": "lead_name",
+              "fieldValue": "={{ $json.Nombre }}"
+            },
+            {
+              "fieldId": "email",
+              "fieldValue": "={{ $json.Email }}"
+            },
+            {
+              "fieldId": "phone",
+              "fieldValue": "={{ $json.Telefono }}"
+            },
+            {
+              "fieldId": "city",
+              "fieldValue": "={{ $json.Ciudad }}"
+            },
+            {
+              "fieldId": "service",
+              "fieldValue": "={{ $json.Servicio }}"
+            },
+            {
+              "fieldId": "processed_at",
+              "fieldValue": "={{ $json.Fecha }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "=procesing"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        192,
+        -112
+      ],
+      "id": "166da6c5-b243-491b-a37a-389fa3cacbec",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "={{ $('Monday - Crea Item').item.json.errors[0].extensions.status_code }}"
+            },
+            {
+              "fieldId": "error_message",
+              "fieldValue": "={{ $('Monday - Crea Item').item.json.errors[0].message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        -144
+      ],
+      "id": "edf2c82d-a7ea-4912-b557-36770c775c66",
+      "name": "Update a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1664,
+        -656
+      ],
+      "id": "bf4641bf-c8c9-4b6e-b562-15283bfad7f1",
+      "name": "No Operation, do nothing1"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Error en los datos."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        -464
+      ],
+      "id": "3daa70b6-f291-4775-b345-b11265fa2d9d",
+      "name": "Stop and Error2"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Estandariza los Datos').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "=201"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        -656
+      ],
+      "id": "d8ce7537-4b7a-4005-9bf8-700819fa79aa",
+      "name": "Update a row1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Switch').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "={{ $json.errorMessage }}"
+            },
+            {
+              "fieldId": "error_message",
+              "fieldValue": "={{ $json.errorDetails.rawErrorMessage[0] }}"
+            },
+            {
+              "fieldId": "record_id",
+              "fieldValue": "={{ $('Switch').item.json.record_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        -464
+      ],
+      "id": "2d7004b1-bfab-45e0-81d2-5e10c491f47b",
+      "name": "Update a row2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Switch').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "=201"
+            },
+            {
+              "fieldId": "error_message",
+              "fieldValue": "=sucess"
+            },
+            {
+              "fieldId": "processed_at",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        32
+      ],
+      "id": "cf30927b-89f0-4b29-a57f-9acee27062bb",
+      "name": "Update a row3",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        192,
+        64
+      ],
+      "id": "1ddac4c1-580c-4d98-b1c4-5067c0310aab",
+      "name": "No Operation, do nothing2"
+    },
+    {
+      "parameters": {
+        "content": "## Hubspot",
+        "height": 448,
+        "width": 912,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1008,
+        -704
+      ],
+      "typeVersion": 1,
+      "id": "dbcd8890-78b2-4461-a4f8-568e1f9852b7",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Monday",
+        "height": 496,
+        "width": 912
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1008,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "736e6396-6aa5-482a-b20f-fb0e6268d9e2",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Intercom",
+        "height": 416,
+        "width": 912
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1008,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "1cc1e563-75f3-4bbc-b5c5-f36055a3d611",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "formId": "LZe26v"
+      },
+      "type": "n8n-nodes-tallyforms.tallyTrigger",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -112
+      ],
+      "id": "de434f45-47eb-45f7-b1e8-291537f911ec",
+      "name": "Tally Trigger",
+      "webhookId": "b2b77131-b42f-4f38-803a-68932be67a84",
+      "credentials": {
+        "tallyApi": {
+          "id": "IxpKcCiKyNIrr3Rk",
+          "name": "Tally account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const data = $json;\n\nfunction cleanText(value) {\n  if (value === null || value === undefined) return \"\";\n\n  return String(value)\n    .trim()\n    .replace(/\\s+/g, \" \");\n}\n\nfunction cleanEmail(value) {\n  return cleanText(value).toLowerCase();\n}\n\nfunction cleanPhone(value) {\n  if (!value) return \"\";\n\n  const digits = String(value).replace(/\\D/g, \"\");\n\n  if (digits.length === 10) {\n    return `+52${digits}`;\n  }\n\n  if (digits.length === 12 && digits.startsWith(\"52\")) {\n    return `+${digits}`;\n  }\n\n  return `+${digits}`;\n}\n\nfunction cleanDate(value) {\n  if (!value) return \"\";\n  return String(value).substring(0, 10);\n}\n\nreturn {\n  json: {\n    recordId: data.id,\n\n    Nombre: cleanText(data.question_Abr46W?.value),\n\n    Email: cleanEmail(data.question_BbEjLA?.value),\n\n    Telefono: cleanPhone(data.question_kRbJ0J?.value),\n\n    Servicio: cleanText(data.question_vxXJ0d?.value),\n\n    Ciudad: cleanText(data.question_KBpWPk?.value),\n\n    Fecha: cleanDate(data.createdAt),\n\n    // Para idempotencia\n    source: \"tally\"\n  }\n};\n\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -112
+      ],
+      "id": "478b6c49-914d-428b-a9e1-0660720decb4",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app3cnq47kQbO42Bx",
+          "mode": "list",
+          "cachedResultName": "Dental Sania",
+          "cachedResultUrl": "https://airtable.com/app3cnq47kQbO42Bx"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWSmk74ScPduRGH",
+          "mode": "list",
+          "cachedResultName": "Contactos/Leads Pacientes",
+          "cachedResultUrl": "https://airtable.com/app3cnq47kQbO42Bx/tblWSmk74ScPduRGH"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $json.lead_name }}",
+            "Email": "={{ $json.email }}",
+            "Telefono": "={{ $json.phone }}",
+            "Servicio de Interés": "={{ [$json.service] }}",
+            "Estado de la República": "={{ [$json.city] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telefono",
+              "displayName": "Telefono",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Servicio de Interés",
+              "displayName": "Servicio de Interés",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "Limpieza dental",
+                  "value": "Limpieza dental"
+                },
+                {
+                  "name": "Blanqueamiento dental",
+                  "value": "Blanqueamiento dental"
+                },
+                {
+                  "name": "Ortodoncia",
+                  "value": "Ortodoncia"
+                },
+                {
+                  "name": "Implantes dentales:",
+                  "value": "Implantes dentales:"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado de la República",
+              "displayName": "Estado de la República",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "Monterrey",
+                  "value": "Monterrey"
+                },
+                {
+                  "name": "Queretaro",
+                  "value": "Queretaro"
+                },
+                {
+                  "name": "Guadalajara",
+                  "value": "Guadalajara"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Creada",
+              "displayName": "Creada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        -128
+      ],
+      "id": "7111aa71-8a7f-490e-885f-11bcb9ecf412",
+      "name": "Create a record",
+      "retryOnFail": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "6BPKm9JHDT3JU3JV",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Switch",
+        "height": 496,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        736,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "4883ef35-544e-49aa-a350-2d3247f2f833",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const fields = $json.fields;\n\nfunction cleanText(value) {\n  if (value === null || value === undefined) return \"\";\n\n  return String(value)\n    .trim()\n    .replace(/\\s+/g, \" \");\n}\n\nfunction cleanEmail(value) {\n  return cleanText(value).toLowerCase();\n}\n\nfunction cleanPhone(value) {\n  if (!value) return \"\";\n\n  const digits = String(value).replace(/\\D/g, \"\");\n\n  if (digits.length === 10) {\n    return `+52${digits}`;\n  }\n\n  if (digits.length === 12 && digits.startsWith(\"52\")) {\n    return `+${digits}`;\n  }\n\n  return `+${digits}`;\n}\n\nfunction cleanArrayValue(value) {\n  if (!Array.isArray(value)) {\n    return cleanText(value);\n  }\n\n  return value\n    .map(item => cleanText(item))\n    .filter(Boolean)\n    .join(\", \");\n}\n\nfunction cleanDate(value) {\n  if (!value) return \"\";\n\n  return String(value).substring(0, 10);\n}\n\nreturn {\n  json: {\n    recordId: $json.id,\n    Nombre: cleanText(fields.Nombre),\n    Email: cleanEmail(fields.Email),\n    Telefono: cleanPhone(fields.Telefono),\n    Servicio: cleanArrayValue(fields[\"Servicio de Interés\"]),\n    Ciudad: cleanArrayValue(fields[\"Estado de la República\"]),\n    Fecha: cleanDate(fields.Creada),\n    source: \"airtable\"\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        -128
+      ],
+      "id": "37ee7b71-6f46-409c-916e-2764558cb060",
+      "name": "Estandariza los Datos"
+    },
+    {
+      "parameters": {
+        "resource": "lead",
+        "email": "={{ $json.Email }}",
+        "jsonParameters": true,
+        "additionalFields": {
+          "name": "={{ $json.Nombre }}",
+          "phone": "={{ $json.Telefono }}"
+        }
+      },
+      "type": "n8n-nodes-base.intercom",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        432
+      ],
+      "id": "13bf2a5e-cde1-41b5-9473-170c2f84e45d",
+      "name": "Crear lead",
+      "credentials": {
+        "intercomApi": {
+          "id": "2yqv3xBB3Q0vRcjP",
+          "name": "Intercom account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Estandariza los Datos').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "record_id",
+              "fieldValue": "={{ $('Switch').item.json.recordId }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "=201"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        336
+      ],
+      "id": "bccb6574-8e74-4059-a4e8-6a891a453759",
+      "name": "Registro Exitoso",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        336
+      ],
+      "id": "cdb5838c-3e1b-4057-8ef2-52cc7c148652",
+      "name": "No Operation, do nothing3"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Switch').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "=201"
+            },
+            {
+              "fieldId": "error_message",
+              "fieldValue": "=sucess"
+            },
+            {
+              "fieldId": "processed_at",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        528
+      ],
+      "id": "3f73dce0-31e1-411d-baf3-a10cee16835a",
+      "name": "Registro Negativo",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "errorMessage": "Error en los datos"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        528
+      ],
+      "id": "1e6b71f3-4c14-4052-b9b4-305f6a660dcb",
+      "name": "Stop and Error3"
+    }
+  ],
+  "pinData": {
+    "Create a row": [
+      {
+        "json": {
+          "id": 1,
+          "record_id": "recfBwxGLCZHvjJo7",
+          "lead_name": "robs",
+          "email": "robs@mail.com",
+          "phone": "+522113443445",
+          "city": "Guadalajara",
+          "service": "Limpieza dental",
+          "destination": null,
+          "status": "procesing",
+          "error_message": null,
+          "processed_at": "2026-09-15T00:00:00+00:00"
+        }
+      }
+    ],
+    "Tally Trigger": [
+      {
+        "json": {
+          "id": "DqYAzbR",
+          "formId": "LZe26v",
+          "formName": "Registro Dental Sania",
+          "respondentId": "5B05djM",
+          "createdAt": "2026-09-15T21:22:48.000Z",
+          "submissionPdfUrl": "https://api.tally.so/forms/LZe26v/submissions/DqYAzbR/pdf?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJtaXNzaW9uSWQiOiJEcVlBemJSIiwiZm9ybUlkIjoiTFplMjZ2IiwiaWF0IjoxNzg5NTA3MzY4fQ.0MKx900YjCvJAe5MUONIJGbB62P-RFszeA6k_jhbDTw&signature=e8de69b33bd3e0ac53931ea0d8c2d294c9c0055c47bf7aaa6ea8cf9eb6f6a97e",
+          "submissionPreviewUrl": "https://tally.so/forms/LZe26v/submissions/DqYAzbR/preview?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJtaXNzaW9uSWQiOiJEcVlBemJSIiwiZm9ybUlkIjoiTFplMjZ2IiwiaWF0IjoxNzg5NTA3MzY4fQ.0MKx900YjCvJAe5MUONIJGbB62P-RFszeA6k_jhbDTw&signature=e8de69b33bd3e0ac53931ea0d8c2d294c9c0055c47bf7aaa6ea8cf9eb6f6a97e",
+          "question_Abr46W": {
+            "label": "Nombre",
+            "value": "rob",
+            "type": "INPUT_TEXT"
+          },
+          "question_BbEjLA": {
+            "label": "Email",
+            "value": "rob@mail.com",
+            "type": "INPUT_EMAIL"
+          },
+          "question_kRbJ0J": {
+            "label": "Telefono",
+            "value": "+522441222222",
+            "type": "INPUT_PHONE_NUMBER"
+          },
+          "question_vxXJ0d": {
+            "label": "Servicio de Interés",
+            "value": "Limpieza Dental",
+            "type": "DROPDOWN"
+          },
+          "question_KBpWPk": {
+            "label": "Estado de la República",
+            "value": "Monterrey",
+            "type": "DROPDOWN"
+          }
+        }
+      }
+    ],
+    "Code in JavaScript": [
+      {
+        "json": {
+          "recordId": "Ar0AlA0",
+          "Nombre": "rob",
+          "Email": "jelp@mail.com",
+          "Telefono": "+523322222222",
+          "Servicio": "Limpieza Dental",
+          "Ciudad": "Monterrey",
+          "Fecha": "2026-09-15",
+          "source": "tally"
+        }
+      }
+    ],
+    "Estandariza los Datos": [
+      {
+        "json": {
+          "recordId": "recZDLcoeFhmBryqn",
+          "Nombre": "robs",
+          "Email": "robs@mail.com",
+          "Telefono": "+522113443445",
+          "Servicio": "Limpieza dental",
+          "Ciudad": "Monterrey",
+          "Fecha": "2026-09-15",
+          "source": "airtable"
+        }
+      }
+    ],
+    "Hubspot - Crea Contacto": [
+      {
+        "json": {
+          "id": "248730434326",
+          "properties": {
+            "createdate": "2026-09-15T22:20:02.224Z",
+            "email": "robs@mail.com",
+            "firstname": "robs",
+            "hs_all_contact_vids": "248730434326",
+            "hs_associated_target_accounts": "0",
+            "hs_currently_enrolled_in_prospecting_agent": "false",
+            "hs_email_domain": "mail.com",
+            "hs_full_name_or_email": "robs",
+            "hs_is_contact": "true",
+            "hs_is_unworked": "true",
+            "hs_lead_status": "NEW",
+            "hs_membership_has_accessed_private_content": "0",
+            "hs_num_active_contracts": "0",
+            "hs_num_associated_open_deals": "0",
+            "hs_object_id": "248730434326",
+            "hs_object_source": "INTEGRATION",
+            "hs_object_source_id": "53240332",
+            "hs_object_source_label": "INTEGRATION",
+            "hs_pipeline": "contacts-lifecycle-pipeline",
+            "hs_prospecting_agent_actively_enrolled_count": "0",
+            "hs_prospecting_agent_total_enrolled_count": "0",
+            "hs_registered_member": "0",
+            "hs_searchable_calculated_phone_number": "522113443445",
+            "hs_sequences_actively_enrolled_count": "0",
+            "hs_v2_date_entered_current_stage": "2026-09-15T22:20:02.224Z",
+            "hs_v2_time_in_current_stage": "2026-09-15T22:20:02.224Z",
+            "lastmodifieddate": "2026-09-15T22:20:02.224Z",
+            "lifecyclestage": "lead",
+            "num_notes": "0",
+            "phone": "+522113443445",
+            "servicio": "Limpieza dental"
+          },
+          "createdAt": "2026-09-15T22:20:02.224Z",
+          "updatedAt": "2026-09-15T22:20:02.224Z",
+          "archived": false,
+          "url": "https://app.hubspot.com/contacts/52031553/record/0-1/248730434326"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Hubspot - Crea Contacto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Monday - Crea Item",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Crear lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Board ID - Group ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update a row3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monday - Crea Item": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a row": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row1": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hubspot - Crea Contacto": {
+      "main": [
+        [
+          {
+            "node": "Update a row1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update a row2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row2": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row3": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Estandariza los Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Estandariza los Datos": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear lead": {
+      "main": [
+        [
+          {
+            "node": "Registro Exitoso",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Registro Negativo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro Negativo": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro Exitoso": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "af06a49f-1171-42f6-b771-ca0ce54256a9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6cc0f89eb731e371992502337a619c69978006102757e9cd996d6e12d5a2799d"
+  },
+  "nodeGroups": [],
+  "id": "L7mq2m2ExgUXZ13d",
+  "tags": []
+}
