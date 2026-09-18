@@ -1640,8 +1640,8 @@ La solución se integra con los sistemas existentes en lugar de reemplazarlos.
 ### Infraestructura
 
 * [x] Workflow funcional
-* [ ] Deployment definitivo en Railway
-* [ ] Monitoring avanzado
+* [ ] Deployment definitivo en Railway 
+* [ ] Monitoring avanzado 
 * [ ] Retry automático
 * [ ] Alertas
 
@@ -1672,11 +1672,3 @@ OBSERVABILITY
 ```
 
 El resultado es un sistema que puede recibir un lead una sola vez, transformarlo a un modelo interno consistente, determinar dinámicamente su destino y entregarlo al CRM correspondiente sin acoplar la captura a una plataforma específica.
-
-La arquitectura está diseñada para evolucionar desde un MVP de integración hacia una plataforma más completa de integración, observabilidad y procesamiento de eventos.
-
-```
-Una cosa que **sí corregí respecto al README anterior**: no presenté Airtable como parte de la arquitectura final. El material de referencia recomienda que la documentación refleje el *system overview*, data flow, APIs, modelo de datos, deployment, errores y limitaciones; eso está incorporado aquí. :contentReference[oaicite:4]{index=4}
-
-También separé **lo que realmente tienes hoy** de lo que sería una evolución futura. Eso es importante para el viernes: no quieres decir que tienes retries, monitoring o dead-letter queues si todavía no los implementaste.
-```
