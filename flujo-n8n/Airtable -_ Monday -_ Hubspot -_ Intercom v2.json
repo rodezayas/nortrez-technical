@@ -194,7 +194,7 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1696,
+        1712,
         32
       ],
       "id": "3070cfa8-67f1-4145-9680-43186efdb614",
@@ -298,94 +298,6 @@
       "name": "Sticky Note1"
     },
     {
-      "parameters": {
-        "tableId": "lead_processing",
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": "record_id",
-              "fieldValue": "={{ $json.recordId }}"
-            },
-            {
-              "fieldId": "lead_name",
-              "fieldValue": "={{ $json.Nombre }}"
-            },
-            {
-              "fieldId": "email",
-              "fieldValue": "={{ $json.Email }}"
-            },
-            {
-              "fieldId": "phone",
-              "fieldValue": "={{ $json.Telefono }}"
-            },
-            {
-              "fieldId": "city",
-              "fieldValue": "={{ $json.Ciudad }}"
-            },
-            {
-              "fieldId": "service",
-              "fieldValue": "={{ $json.Servicio }}"
-            },
-            {
-              "fieldId": "processed_at",
-              "fieldValue": "={{ $json.Fecha }}"
-            },
-            {
-              "fieldId": "status",
-              "fieldValue": "=procesing"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [
-        192,
-        -112
-      ],
-      "id": "166da6c5-b243-491b-a37a-389fa3cacbec",
-      "name": "Create a row",
-      "credentials": {
-        "supabaseApi": {
-          "id": "FbcCP2YjbRwDVNpA",
-          "name": "Supabase account"
-        }
-      },
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "tableId": "lead_processing",
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": "status",
-              "fieldValue": "={{ $('Monday - Crea Item').item.json.errors[0].extensions.status_code }}"
-            },
-            {
-              "fieldId": "error_message",
-              "fieldValue": "={{ $('Monday - Crea Item').item.json.errors[0].message }}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [
-        1520,
-        -144
-      ],
-      "id": "edf2c82d-a7ea-4912-b557-36770c775c66",
-      "name": "Update a row",
-      "credentials": {
-        "supabaseApi": {
-          "id": "FbcCP2YjbRwDVNpA",
-          "name": "Supabase account"
-        }
-      }
-    },
-    {
       "parameters": {},
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -408,134 +320,6 @@
       ],
       "id": "3daa70b6-f291-4775-b345-b11265fa2d9d",
       "name": "Stop and Error2"
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "tableId": "lead_processing",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "record_id",
-              "condition": "eq",
-              "keyValue": "={{ $('Estandariza los Datos').item.json.recordId }}"
-            }
-          ]
-        },
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": "status",
-              "fieldValue": "=201"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [
-        1488,
-        -656
-      ],
-      "id": "d8ce7537-4b7a-4005-9bf8-700819fa79aa",
-      "name": "Update a row1",
-      "credentials": {
-        "supabaseApi": {
-          "id": "FbcCP2YjbRwDVNpA",
-          "name": "Supabase account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "tableId": "lead_processing",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "record_id",
-              "condition": "eq",
-              "keyValue": "={{ $('Switch').item.json.recordId }}"
-            }
-          ]
-        },
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": "status",
-              "fieldValue": "={{ $json.errorMessage }}"
-            },
-            {
-              "fieldId": "error_message",
-              "fieldValue": "={{ $json.errorDetails.rawErrorMessage[0] }}"
-            },
-            {
-              "fieldId": "record_id",
-              "fieldValue": "={{ $('Switch').item.json.record_id }}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [
-        1488,
-        -464
-      ],
-      "id": "2d7004b1-bfab-45e0-81d2-5e10c491f47b",
-      "name": "Update a row2",
-      "credentials": {
-        "supabaseApi": {
-          "id": "FbcCP2YjbRwDVNpA",
-          "name": "Supabase account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "tableId": "lead_processing",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "record_id",
-              "condition": "eq",
-              "keyValue": "={{ $('Switch').item.json.recordId }}"
-            }
-          ]
-        },
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldId": "status",
-              "fieldValue": "=201"
-            },
-            {
-              "fieldId": "error_message",
-              "fieldValue": "=sucess"
-            },
-            {
-              "fieldId": "processed_at",
-              "fieldValue": "={{ $now }}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.supabase",
-      "typeVersion": 1,
-      "position": [
-        1520,
-        32
-      ],
-      "id": "cf30927b-89f0-4b29-a57f-9acee27062bb",
-      "name": "Update a row3",
-      "alwaysOutputData": true,
-      "credentials": {
-        "supabaseApi": {
-          "id": "FbcCP2YjbRwDVNpA",
-          "name": "Supabase account"
-        }
-      }
     },
     {
       "parameters": {},
@@ -593,199 +377,6 @@
       "typeVersion": 1,
       "id": "1cc1e563-75f3-4bbc-b5c5-f36055a3d611",
       "name": "Sticky Note4"
-    },
-    {
-      "parameters": {
-        "formId": "LZe26v"
-      },
-      "type": "n8n-nodes-tallyforms.tallyTrigger",
-      "typeVersion": 2,
-      "position": [
-        -208,
-        -112
-      ],
-      "id": "de434f45-47eb-45f7-b1e8-291537f911ec",
-      "name": "Tally Trigger",
-      "webhookId": "b2b77131-b42f-4f38-803a-68932be67a84",
-      "credentials": {
-        "tallyApi": {
-          "id": "IxpKcCiKyNIrr3Rk",
-          "name": "Tally account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "const data = $json;\n\nfunction cleanText(value) {\n  if (value === null || value === undefined) return \"\";\n\n  return String(value)\n    .trim()\n    .replace(/\\s+/g, \" \");\n}\n\nfunction cleanEmail(value) {\n  return cleanText(value).toLowerCase();\n}\n\nfunction cleanPhone(value) {\n  if (!value) return \"\";\n\n  const digits = String(value).replace(/\\D/g, \"\");\n\n  if (digits.length === 10) {\n    return `+52${digits}`;\n  }\n\n  if (digits.length === 12 && digits.startsWith(\"52\")) {\n    return `+${digits}`;\n  }\n\n  return `+${digits}`;\n}\n\nfunction cleanDate(value) {\n  if (!value) return \"\";\n  return String(value).substring(0, 10);\n}\n\nreturn {\n  json: {\n    recordId: data.id,\n\n    Nombre: cleanText(data.question_Abr46W?.value),\n\n    Email: cleanEmail(data.question_BbEjLA?.value),\n\n    Telefono: cleanPhone(data.question_kRbJ0J?.value),\n\n    Servicio: cleanText(data.question_vxXJ0d?.value),\n\n    Ciudad: cleanText(data.question_KBpWPk?.value),\n\n    Fecha: cleanDate(data.createdAt),\n\n    // Para idempotencia\n    source: \"tally\"\n  }\n};\n\n\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        0,
-        -112
-      ],
-      "id": "478b6c49-914d-428b-a9e1-0660720decb4",
-      "name": "Code in JavaScript"
-    },
-    {
-      "parameters": {
-        "operation": "create",
-        "base": {
-          "__rl": true,
-          "value": "app3cnq47kQbO42Bx",
-          "mode": "list",
-          "cachedResultName": "Dental Sania",
-          "cachedResultUrl": "https://airtable.com/app3cnq47kQbO42Bx"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tblWSmk74ScPduRGH",
-          "mode": "list",
-          "cachedResultName": "Contactos/Leads Pacientes",
-          "cachedResultUrl": "https://airtable.com/app3cnq47kQbO42Bx/tblWSmk74ScPduRGH"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Nombre": "={{ $json.lead_name }}",
-            "Email": "={{ $json.email }}",
-            "Telefono": "={{ $json.phone }}",
-            "Servicio de Interés": "={{ [$json.service] }}",
-            "Estado de la República": "={{ [$json.city] }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "Nombre",
-              "displayName": "Nombre",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Email",
-              "displayName": "Email",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Telefono",
-              "displayName": "Telefono",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Servicio de Interés",
-              "displayName": "Servicio de Interés",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "array",
-              "options": [
-                {
-                  "name": "Limpieza dental",
-                  "value": "Limpieza dental"
-                },
-                {
-                  "name": "Blanqueamiento dental",
-                  "value": "Blanqueamiento dental"
-                },
-                {
-                  "name": "Ortodoncia",
-                  "value": "Ortodoncia"
-                },
-                {
-                  "name": "Implantes dentales:",
-                  "value": "Implantes dentales:"
-                }
-              ],
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Estado de la República",
-              "displayName": "Estado de la República",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "array",
-              "options": [
-                {
-                  "name": "Monterrey",
-                  "value": "Monterrey"
-                },
-                {
-                  "name": "Queretaro",
-                  "value": "Queretaro"
-                },
-                {
-                  "name": "Guadalajara",
-                  "value": "Guadalajara"
-                }
-              ],
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Creada",
-              "displayName": "Creada",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": true,
-              "removed": true
-            },
-            {
-              "id": "ID",
-              "displayName": "ID",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": true,
-              "removed": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.airtable",
-      "typeVersion": 2.2,
-      "position": [
-        400,
-        -128
-      ],
-      "id": "7111aa71-8a7f-490e-885f-11bcb9ecf412",
-      "name": "Create a record",
-      "retryOnFail": true,
-      "credentials": {
-        "airtableTokenApi": {
-          "id": "6BPKm9JHDT3JU3JV",
-          "name": "Airtable Personal Access Token account"
-        }
-      }
     },
     {
       "parameters": {
@@ -952,78 +543,418 @@
       ],
       "id": "1e6b71f3-4c14-4052-b9b4-305f6a660dcb",
       "name": "Stop and Error3"
+    },
+    {
+      "parameters": {
+        "formId": "LZe26v"
+      },
+      "type": "n8n-nodes-tallyforms.tallyTrigger",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -112
+      ],
+      "id": "de434f45-47eb-45f7-b1e8-291537f911ec",
+      "name": "Formulario - Trigger",
+      "webhookId": "b2b77131-b42f-4f38-803a-68932be67a84",
+      "credentials": {
+        "tallyApi": {
+          "id": "IxpKcCiKyNIrr3Rk",
+          "name": "Tally account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const data = $json;\n\nfunction cleanText(value) {\n  if (value === null || value === undefined) return \"\";\n\n  return String(value)\n    .trim()\n    .replace(/\\s+/g, \" \");\n}\n\nfunction cleanEmail(value) {\n  return cleanText(value).toLowerCase();\n}\n\nfunction cleanPhone(value) {\n  if (!value) return \"\";\n\n  const digits = String(value).replace(/\\D/g, \"\");\n\n  if (digits.length === 10) {\n    return `+52${digits}`;\n  }\n\n  if (digits.length === 12 && digits.startsWith(\"52\")) {\n    return `+${digits}`;\n  }\n\n  return `+${digits}`;\n}\n\nfunction cleanDate(value) {\n  if (!value) return \"\";\n  return String(value).substring(0, 10);\n}\n\nreturn {\n  json: {\n    recordId: data.id,\n\n    Nombre: cleanText(data.question_Abr46W?.value),\n\n    Email: cleanEmail(data.question_BbEjLA?.value),\n\n    Telefono: cleanPhone(data.question_kRbJ0J?.value),\n\n    Servicio: cleanText(data.question_vxXJ0d?.value),\n\n    Ciudad: cleanText(data.question_KBpWPk?.value),\n\n    Fecha: cleanDate(data.createdAt),\n\n    // Para idempotencia\n    source: \"tally\"\n  }\n};\n\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -112
+      ],
+      "id": "478b6c49-914d-428b-a9e1-0660720decb4",
+      "name": "Transformador Payload"
+    },
+    {
+      "parameters": {
+        "tableId": "lead_processing",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "record_id",
+              "fieldValue": "={{ $json.recordId }}"
+            },
+            {
+              "fieldId": "lead_name",
+              "fieldValue": "={{ $json.Nombre }}"
+            },
+            {
+              "fieldId": "email",
+              "fieldValue": "={{ $json.Email }}"
+            },
+            {
+              "fieldId": "phone",
+              "fieldValue": "={{ $json.Telefono }}"
+            },
+            {
+              "fieldId": "city",
+              "fieldValue": "={{ $json.Ciudad }}"
+            },
+            {
+              "fieldId": "service",
+              "fieldValue": "={{ $json.Servicio }}"
+            },
+            {
+              "fieldId": "processed_at",
+              "fieldValue": "={{ $json.Fecha }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "=procesing"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        192,
+        -112
+      ],
+      "id": "166da6c5-b243-491b-a37a-389fa3cacbec",
+      "name": "Deduplication / Source of truth",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app3cnq47kQbO42Bx",
+          "mode": "list",
+          "cachedResultName": "Dental Sania",
+          "cachedResultUrl": "https://airtable.com/app3cnq47kQbO42Bx"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWSmk74ScPduRGH",
+          "mode": "list",
+          "cachedResultName": "Contactos/Leads Pacientes",
+          "cachedResultUrl": "https://airtable.com/app3cnq47kQbO42Bx/tblWSmk74ScPduRGH"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $json.lead_name }}",
+            "Email": "={{ $json.email }}",
+            "Telefono": "={{ $json.phone }}",
+            "Servicio de Interés": "={{ [$json.service] }}",
+            "Estado de la República": "={{ [$json.city] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telefono",
+              "displayName": "Telefono",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Servicio de Interés",
+              "displayName": "Servicio de Interés",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "Limpieza dental",
+                  "value": "Limpieza dental"
+                },
+                {
+                  "name": "Blanqueamiento dental",
+                  "value": "Blanqueamiento dental"
+                },
+                {
+                  "name": "Ortodoncia",
+                  "value": "Ortodoncia"
+                },
+                {
+                  "name": "Implantes dentales:",
+                  "value": "Implantes dentales:"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado de la República",
+              "displayName": "Estado de la República",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "Monterrey",
+                  "value": "Monterrey"
+                },
+                {
+                  "name": "Queretaro",
+                  "value": "Queretaro"
+                },
+                {
+                  "name": "Guadalajara",
+                  "value": "Guadalajara"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Creada",
+              "displayName": "Creada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        -128
+      ],
+      "id": "7111aa71-8a7f-490e-885f-11bcb9ecf412",
+      "name": "Matrix Franquisiaria - database",
+      "retryOnFail": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "6BPKm9JHDT3JU3JV",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Switch').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "=201"
+            },
+            {
+              "fieldId": "error_message",
+              "fieldValue": "=sucess"
+            },
+            {
+              "fieldId": "processed_at",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        32
+      ],
+      "id": "cf30927b-89f0-4b29-a57f-9acee27062bb",
+      "name": "Registro Positivo1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "={{ $('Monday - Crea Item').item.json.errors[0].extensions.status_code }}"
+            },
+            {
+              "fieldId": "error_message",
+              "fieldValue": "={{ $('Monday - Crea Item').item.json.errors[0].message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        -144
+      ],
+      "id": "edf2c82d-a7ea-4912-b557-36770c775c66",
+      "name": "Registro Negativo1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Switch').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "={{ $json.errorMessage }}"
+            },
+            {
+              "fieldId": "error_message",
+              "fieldValue": "={{ $json.errorDetails.rawErrorMessage[0] }}"
+            },
+            {
+              "fieldId": "record_id",
+              "fieldValue": "={{ $('Switch').item.json.record_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        -464
+      ],
+      "id": "2d7004b1-bfab-45e0-81d2-5e10c491f47b",
+      "name": "Registro Negativo2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "lead_processing",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "record_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Estandariza los Datos').item.json.recordId }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "=201"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        -656
+      ],
+      "id": "d8ce7537-4b7a-4005-9bf8-700819fa79aa",
+      "name": "Registro Positivo2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "FbcCP2YjbRwDVNpA",
+          "name": "Supabase account"
+        }
+      }
     }
   ],
   "pinData": {
-    "Create a row": [
-      {
-        "json": {
-          "id": 1,
-          "record_id": "recfBwxGLCZHvjJo7",
-          "lead_name": "robs",
-          "email": "robs@mail.com",
-          "phone": "+522113443445",
-          "city": "Guadalajara",
-          "service": "Limpieza dental",
-          "destination": null,
-          "status": "procesing",
-          "error_message": null,
-          "processed_at": "2026-09-15T00:00:00+00:00"
-        }
-      }
-    ],
-    "Tally Trigger": [
-      {
-        "json": {
-          "id": "DqYAzbR",
-          "formId": "LZe26v",
-          "formName": "Registro Dental Sania",
-          "respondentId": "5B05djM",
-          "createdAt": "2026-09-15T21:22:48.000Z",
-          "submissionPdfUrl": "https://api.tally.so/forms/LZe26v/submissions/DqYAzbR/pdf?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJtaXNzaW9uSWQiOiJEcVlBemJSIiwiZm9ybUlkIjoiTFplMjZ2IiwiaWF0IjoxNzg5NTA3MzY4fQ.0MKx900YjCvJAe5MUONIJGbB62P-RFszeA6k_jhbDTw&signature=e8de69b33bd3e0ac53931ea0d8c2d294c9c0055c47bf7aaa6ea8cf9eb6f6a97e",
-          "submissionPreviewUrl": "https://tally.so/forms/LZe26v/submissions/DqYAzbR/preview?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJtaXNzaW9uSWQiOiJEcVlBemJSIiwiZm9ybUlkIjoiTFplMjZ2IiwiaWF0IjoxNzg5NTA3MzY4fQ.0MKx900YjCvJAe5MUONIJGbB62P-RFszeA6k_jhbDTw&signature=e8de69b33bd3e0ac53931ea0d8c2d294c9c0055c47bf7aaa6ea8cf9eb6f6a97e",
-          "question_Abr46W": {
-            "label": "Nombre",
-            "value": "rob",
-            "type": "INPUT_TEXT"
-          },
-          "question_BbEjLA": {
-            "label": "Email",
-            "value": "rob@mail.com",
-            "type": "INPUT_EMAIL"
-          },
-          "question_kRbJ0J": {
-            "label": "Telefono",
-            "value": "+522441222222",
-            "type": "INPUT_PHONE_NUMBER"
-          },
-          "question_vxXJ0d": {
-            "label": "Servicio de Interés",
-            "value": "Limpieza Dental",
-            "type": "DROPDOWN"
-          },
-          "question_KBpWPk": {
-            "label": "Estado de la República",
-            "value": "Monterrey",
-            "type": "DROPDOWN"
-          }
-        }
-      }
-    ],
-    "Code in JavaScript": [
-      {
-        "json": {
-          "recordId": "Ar0AlA0",
-          "Nombre": "rob",
-          "Email": "jelp@mail.com",
-          "Telefono": "+523322222222",
-          "Servicio": "Limpieza Dental",
-          "Ciudad": "Monterrey",
-          "Fecha": "2026-09-15",
-          "source": "tally"
-        }
-      }
-    ],
     "Estandariza los Datos": [
       {
         "json": {
@@ -1084,6 +1015,75 @@
           "item": 0
         }
       }
+    ],
+    "Formulario - Trigger": [
+      {
+        "json": {
+          "id": "DqYAzbR",
+          "formId": "LZe26v",
+          "formName": "Registro Dental Sania",
+          "respondentId": "5B05djM",
+          "createdAt": "2026-09-15T21:22:48.000Z",
+          "submissionPdfUrl": "https://api.tally.so/forms/LZe26v/submissions/DqYAzbR/pdf?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJtaXNzaW9uSWQiOiJEcVlBemJSIiwiZm9ybUlkIjoiTFplMjZ2IiwiaWF0IjoxNzg5NTA3MzY4fQ.0MKx900YjCvJAe5MUONIJGbB62P-RFszeA6k_jhbDTw&signature=e8de69b33bd3e0ac53931ea0d8c2d294c9c0055c47bf7aaa6ea8cf9eb6f6a97e",
+          "submissionPreviewUrl": "https://tally.so/forms/LZe26v/submissions/DqYAzbR/preview?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJtaXNzaW9uSWQiOiJEcVlBemJSIiwiZm9ybUlkIjoiTFplMjZ2IiwiaWF0IjoxNzg5NTA3MzY4fQ.0MKx900YjCvJAe5MUONIJGbB62P-RFszeA6k_jhbDTw&signature=e8de69b33bd3e0ac53931ea0d8c2d294c9c0055c47bf7aaa6ea8cf9eb6f6a97e",
+          "question_Abr46W": {
+            "label": "Nombre",
+            "value": "rob",
+            "type": "INPUT_TEXT"
+          },
+          "question_BbEjLA": {
+            "label": "Email",
+            "value": "rob@mail.com",
+            "type": "INPUT_EMAIL"
+          },
+          "question_kRbJ0J": {
+            "label": "Telefono",
+            "value": "+522441222222",
+            "type": "INPUT_PHONE_NUMBER"
+          },
+          "question_vxXJ0d": {
+            "label": "Servicio de Interés",
+            "value": "Limpieza Dental",
+            "type": "DROPDOWN"
+          },
+          "question_KBpWPk": {
+            "label": "Estado de la República",
+            "value": "Monterrey",
+            "type": "DROPDOWN"
+          }
+        }
+      }
+    ],
+    "Transformador Payload": [
+      {
+        "json": {
+          "recordId": "Ar0AlA0",
+          "Nombre": "rob",
+          "Email": "jelp@mail.com",
+          "Telefono": "+523322222222",
+          "Servicio": "Limpieza Dental",
+          "Ciudad": "Monterrey",
+          "Fecha": "2026-09-15",
+          "source": "tally"
+        }
+      }
+    ],
+    "Deduplication / Source of truth": [
+      {
+        "json": {
+          "id": 1,
+          "record_id": "recfBwxGLCZHvjJo7",
+          "lead_name": "robs",
+          "email": "robs@mail.com",
+          "phone": "+522113443445",
+          "city": "Guadalajara",
+          "service": "Limpieza dental",
+          "destination": null,
+          "status": "procesing",
+          "error_message": null,
+          "processed_at": "2026-09-15T00:00:00+00:00"
+        }
+      }
     ]
   },
   "connections": {
@@ -1127,14 +1127,14 @@
       "main": [
         [
           {
-            "node": "Update a row",
+            "node": "Registro Negativo1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Update a row3",
+            "node": "Registro Positivo1",
             "type": "main",
             "index": 0
           }
@@ -1152,113 +1152,18 @@
         ]
       ]
     },
-    "Create a row": {
-      "main": [
-        [
-          {
-            "node": "Create a record",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "No Operation, do nothing2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update a row": {
-      "main": [
-        [
-          {
-            "node": "Stop and Error1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update a row1": {
-      "main": [
-        [
-          {
-            "node": "No Operation, do nothing1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Hubspot - Crea Contacto": {
       "main": [
         [
           {
-            "node": "Update a row1",
+            "node": "Registro Positivo2",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Update a row2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update a row2": {
-      "main": [
-        [
-          {
-            "node": "Stop and Error2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update a row3": {
-      "main": [
-        [
-          {
-            "node": "No Operation, do nothing",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Tally Trigger": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript": {
-      "main": [
-        [
-          {
-            "node": "Create a row",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Create a record": {
-      "main": [
-        [
-          {
-            "node": "Estandariza los Datos",
+            "node": "Registro Negativo2",
             "type": "main",
             "index": 0
           }
@@ -1315,6 +1220,101 @@
           }
         ]
       ]
+    },
+    "Formulario - Trigger": {
+      "main": [
+        [
+          {
+            "node": "Transformador Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transformador Payload": {
+      "main": [
+        [
+          {
+            "node": "Deduplication / Source of truth",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplication / Source of truth": {
+      "main": [
+        [
+          {
+            "node": "Matrix Franquisiaria - database",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Matrix Franquisiaria - database": {
+      "main": [
+        [
+          {
+            "node": "Estandariza los Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro Positivo1": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro Negativo1": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro Negativo2": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro Positivo2": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1323,7 +1323,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "af06a49f-1171-42f6-b771-ca0ce54256a9",
+  "versionId": "298bc889-acbf-465e-af2f-4dea435ea6ad",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "6cc0f89eb731e371992502337a619c69978006102757e9cd996d6e12d5a2799d"

@@ -10,9 +10,9 @@ La solución utiliza **n8n como capa de integración y orquestación**, **Supaba
 
 El objetivo no es reemplazar los CRMs existentes, sino construir una **capa de integración desacoplada** que permita conectar el sistema de captura con diferentes plataformas y mantener una lógica centralizada de procesamiento.
 
-Landing Page principal: https://dentalsania.lovable.app
-Database Airtable: https://airtable.com/app3cnq47kQbO42Bx/shrIp7rcxmxi6Oog5
-Hubspot: https://app.hubspot.com/contacts/52031553/objects/0-1/views/72492061/list
+- Landing Page principal: https://dentalsania.lovable.app
+- Database Airtable: https://airtable.com/app3cnq47kQbO42Bx/shrIp7rcxmxi6Oog5
+- Hubspot: https://app.hubspot.com/contacts/52031553/objects/0-1/views/72492061/list
 
 ---
 
