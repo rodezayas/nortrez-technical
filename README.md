@@ -13,7 +13,7 @@ El objetivo no es reemplazar los CRMs existentes, sino construir una **capa de i
 - Landing Page principal: https://dentalsania.lovable.app
 - Database Airtable: https://airtable.com/app3cnq47kQbO42Bx/shrIp7rcxmxi6Oog5
 - Hubspot: https://app.hubspot.com/contacts/52031553/objects/0-1/views/72492061/list
-
+- Monday: https://view.monday.com/18430363886-1152c8e35a415f57dc642206177c9b51?r=use1&is_sharable_link=true
 ---
 
 ![Workflow](flujo.png)
